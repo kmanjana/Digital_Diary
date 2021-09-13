@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row top-spacer">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+      </div>
+      <h3>{{post.title}}</h3>
+     </div> 
+     <div class="mainc">
+       <p>Blog contents.................</p>
+         
+      <!-- <button type="button" onclick="onClick()" class="btn btn-danger mb-5">Danger</button>
+        <button type="button" class="btn btn-primary mb-5">Primary</button>
+         -->
+         <textarea *ngIf="isClicked" name="text" id="" cols="30" rows="10"></textarea>
+        <button class="btn btn-danger mx-2"(click)="OnClick()">{{buttonName}} review</button>
+        <button (click)="Deletepost(post)" class="btn btn-danger mx-3">Delete</button>
+     </div>
+     <div class="row top-spacer">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+      </div>
+     </div>
+   </div>

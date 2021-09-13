@@ -1,0 +1,10 @@
+<form #addpost ="ngForm" (ngSubmit)="AddPost()">
+    <br><br>
+    <label>title </label>
+    <textarea cols="40"  name="title" [(ngModel)]= "postItem.title" ></textarea>
+    <br><br>
+    <label>category </label>
+    <input type="text" name="category" [(ngModel)]= "postItem.category">
+    <br><br>
+    <button type="submit"  style="margin-left: 80px;">ADD</button><br>
+</form> 
