@@ -16,7 +16,6 @@ export class MypostsComponent implements OnInit {
   user = new UserModel("");
 
   constructor(private postService: PostService ,public _auth:AuthService, private _router: Router) { }
-
   ngOnInit(): void { 
     let userId = localStorage.getItem("UserID");
     this.postService.getmyPosts(userId)
