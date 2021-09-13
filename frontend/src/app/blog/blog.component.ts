@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { PostModel } from 'src/app/posts/post.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-blog',
@@ -13,6 +14,7 @@ export class BlogComponent implements OnInit {
   
   isClicked = false; 
   buttonName:any = 'Show';
+  buttonNamer:any = 'Add'
   OnClick(){
     this.isClicked = !this.isClicked;
     if(this.isClicked)  
@@ -20,9 +22,16 @@ export class BlogComponent implements OnInit {
     else
       this.buttonName = "Show";
   }
+  OnClickR(){
+    this.isClicked = !this.isClicked;
+    if(this.isClicked)  
+      this.buttonNamer = "Submit";
+    else
+      this.buttonNamer = "Add";
+  }
   
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, public _auth:AuthService) { }
 
   ngOnInit(): void { 
     let postid = localStorage.getItem("postId");

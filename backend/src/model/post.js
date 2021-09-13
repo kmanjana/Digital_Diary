@@ -7,7 +7,8 @@ const Post = mongoose.model('Post', {
         type: String,
         required: true
     },
-    category : String
+    category : String,
+    review:String
 
 
     // content: {

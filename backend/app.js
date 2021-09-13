@@ -180,10 +180,12 @@ app.post('/insertpost/:userid' ,verifyToken, function (req,res){
     var post = {
         UserID : UserId,
         title : req.body.post.title,
-        category : req.body.post.category  //check this section to add the review
+        category : req.body.post.category ,
+        review : null       //check this section to add the review
     }
 
     var post = new PostData(post); 
+    console.log(post);
     post.save();
 });
 app.get('/blogs',function(req,res){
@@ -209,7 +211,8 @@ app.put('/updatepost/:userid' ,verifyToken, function(req,res){
                                   {$set : {
                                       "UserID" : UserID,
                                       "title" : title,
-                                      "category" : category                                
+                                      "category" : category, 
+                                      "review" : null                            
                                   }})
     .then(function(){
         res.send();

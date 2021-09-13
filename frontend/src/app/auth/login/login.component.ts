@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
       res=>{
         if(res.username == "admin"){
           localStorage.setItem('admintoken', res.token);
-          this._router.navigate(['/']);
+          this._router.navigate(['/blogs']);
         }
         else{
         localStorage.setItem('token', res.token); //token from backend(res.token) stored in localStorage key name as 'token'
