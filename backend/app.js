@@ -177,7 +177,6 @@ app.post('/insertpost/:userid' ,verifyToken, function (req,res){
     const UserId = req.params.userid;
     console.log("insert");
     console.log(req.body);
-
     var post = {
         UserID : UserId,
         title : req.body.post.title,
