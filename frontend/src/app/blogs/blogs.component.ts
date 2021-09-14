@@ -12,7 +12,7 @@ export class BlogsComponent implements OnInit {
 
   posts : PostModel[] = [];
 
-  constructor(private postService : PostService) { }
+  constructor(private postService : PostService,private _router: Router) { }
 
   ngOnInit(): void {
     this.postService.getBlogs()
@@ -20,6 +20,11 @@ export class BlogsComponent implements OnInit {
       this.posts = JSON.parse(JSON.stringify(blogs));
     })
   } 
+  // UpdatePost(post:any){
+  //   localStorage.setItem("updatePostId" , post._id.toString());
+  //   console.log(post);
+  //   this._router.navigate(['/updatepost']);
+  // }
 
   categorySelect(catgselect : any){
     console.log("hai");
@@ -29,5 +34,10 @@ export class BlogsComponent implements OnInit {
       this.posts = JSON.parse(JSON.stringify(data));
     })
   }
-
+  Addreview(post:any){
+    localStorage.setItem("updatePostId", post._id.toString());
+    console.log(post);
+    this._router.navigate(['/blogs']);
+  }
+ 
 }

@@ -39,8 +39,12 @@ export class PostService {
     return this.http.get("http://localhost:3000/singlepost/"+postid);
   }
 
-  updatePost(post: any , userid:any){
+  updatePost(post: any ,userid:any){
     return this.http.put("http://localhost:3000/updatepost/"+userid, post)
+    .subscribe((data)=>{console.log(data)})
+  }
+  addReview(post: any){
+    return this.http.put("http://localhost:3000/blog", post)
     .subscribe((data)=>{console.log(data)})
   }
 

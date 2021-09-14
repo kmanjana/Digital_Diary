@@ -181,7 +181,7 @@ app.post('/insertpost/:userid' ,verifyToken, function (req,res){
         UserID : UserId,
         title : req.body.post.title,
         category : req.body.post.category ,
-        review : null       //check this section to add the review
+        review :""     //check this section to add the review
     }
 
     var post = new PostData(post); 
@@ -198,6 +198,7 @@ app.get('/blogs',function(req,res){
 });
 
 //update a post
+//update a post
 app.put('/updatepost/:userid' ,verifyToken, function(req,res){
     console.log("update" +req.body);
     const UserId = req.params.userid;
@@ -206,17 +207,42 @@ app.put('/updatepost/:userid' ,verifyToken, function(req,res){
     UserID = UserId,
     title = req.body.title,
     category = req.body.category
+    console.log("update");
+    console.log(req.body);
 
     PostData.findByIdAndUpdate({"_id" : id },
                                   {$set : {
                                       "UserID" : UserID,
                                       "title" : title,
                                       "category" : category, 
-                                      "review" : null                            
+                                      "review" :""                            
                                   }})
     .then(function(){
         res.send();
     })                                  
+})
+//add a review 
+app.put('/blog', function(req,res){
+    console.log("Review" +req.body);
+    const UserId = req.params.userid;
+
+    id = req.body._id,
+    UserID = UserId,
+    // title = req.body.title,
+    // category = req.body.category,
+    review=req.body.review
+    console.log("review");
+    console.log(req.body);
+    PostData.findByIdAndUpdate({"_id" : id },
+                                  {$set : {
+                                      "UserID" : UserID,
+                                    //   "title" : title,
+                                    //   "category" : category, 
+                                      "review" : review                       
+                                  }})
+    .then(function(){
+        res.send();
+    })                                 
 })
 
 // delete post

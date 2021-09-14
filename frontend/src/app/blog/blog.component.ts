@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { PostService } from 'src/app/services/post.service';
 import { PostModel } from 'src/app/posts/post.model';
 import { AuthService } from '../services/auth.service';
@@ -14,7 +16,7 @@ export class BlogComponent implements OnInit {
   
   isClicked = false; 
   buttonName:any = 'Show';
-  buttonNamer:any = 'Add'
+  // buttonNamer:any = 'Add'
   OnClick(){
     this.isClicked = !this.isClicked;
     if(this.isClicked)  
@@ -22,16 +24,16 @@ export class BlogComponent implements OnInit {
     else
       this.buttonName = "Show";
   }
-  OnClickR(){
-    this.isClicked = !this.isClicked;
-    if(this.isClicked)  
-      this.buttonNamer = "Submit";
-    else
-      this.buttonNamer = "Add";
-  }
+  // OnClickR(){
+  //   this.isClicked = !this.isClicked;
+  //   if(this.isClicked)  
+  //     this.buttonNamer = "Submit";
+  //   else
+  //     this.buttonNamer = "Add";
+  // }
   
 
-  constructor(private postService: PostService, public _auth:AuthService) { }
+  constructor(private postService: PostService, public _auth:AuthService, private _router : Router) { }
 
   ngOnInit(): void { 
     let postid = localStorage.getItem("postId");
@@ -43,5 +45,12 @@ export class BlogComponent implements OnInit {
   Deletepost(id:any){
     this.postService.deletepost(id);
   }
-
+  AddReview(){
+    let userid = localStorage.getItem("UserId");
+    this.postService.addReview(this.post);
+    // console.log("added");
+    console.log(this.post);
+    alert("success");
+    this._router.navigate(['/blogs']); 
+  }
 }
