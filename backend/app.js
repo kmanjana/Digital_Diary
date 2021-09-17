@@ -215,7 +215,7 @@ app.put('/updatepost/:userid' ,verifyToken, function(req,res){
                                       "UserID" : UserID,
                                       "title" : title,
                                       "category" : category, 
-                                      "review" :""                            
+                                      "review" : null                           
                                   }})
     .then(function(){
         res.send();
@@ -232,7 +232,7 @@ app.put('/blog', function(req,res){
     // category = req.body.category,
     review=req.body.review
     console.log("review");
-    console.log(req.body);
+    console.log(req.body);  
     PostData.findByIdAndUpdate({"_id" : id },
                                   {$set : {
                                       "UserID" : UserID,
