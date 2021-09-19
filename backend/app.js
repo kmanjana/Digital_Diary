@@ -181,7 +181,7 @@ app.post('/insertpost/:userid' ,verifyToken, function (req,res){
         UserID : UserId,
         title : req.body.post.title,
         category : req.body.post.category ,
-        review :""     //check this section to add the review
+        review :req.body.post.review     //check this section to add the review
     }
 
     var post = new PostData(post); 
@@ -228,13 +228,13 @@ app.put('/updatepost/:userid' ,verifyToken, function(req,res){
     })                                  
 })
 //add a review 
-app.put('/blog/:postid', function(req,res){
+app.put('/blog/:postId', function(req,res){
     console.log("Review "+req.body);
     const postId = req.params.postid;
-    // id = req.body._id,
+    id = req.body._id,
     review=req.body.review;
     console.log("review");  
-    PostData.findByIdAndUpdate({"_id":postId },
+    PostData.findByIdAndUpdate({"_id":postId},
                                   {$set : {
                                     //   "UserID" : UserID,
                                     //   "title" : title,
@@ -244,7 +244,7 @@ app.put('/blog/:postid', function(req,res){
     .then(function(){
         res.send();
     }) 
-    console.log(req.body.review);
+    console.log(req.review);
 })
 
 // delete post

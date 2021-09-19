@@ -49,7 +49,7 @@ export class BlogComponent implements OnInit {
   AddReview(){
     // let userid = localStorage.getItem("UserID");
     let postId = localStorage.getItem("updatePostId");
-    this.postService.addReview(this.post.review,postId);
+    this.postService.addReview(postId,this.post.review);
     // console.log("added");
     console.log(this.post);
     alert("success");

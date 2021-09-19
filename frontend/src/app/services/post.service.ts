@@ -44,7 +44,7 @@ export class PostService {
     .subscribe((data)=>{console.log(data)})
   }
   addReview(review:any,postid:any){
-    return this.http.put("http://localhost:3000/blog/"+postid,{"post":review})
+    return this.http.put("http://localhost:3000/blog/"+postid,review)
     .subscribe((data)=>{console.log(data)})
   }
 
