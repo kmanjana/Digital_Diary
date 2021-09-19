@@ -11,6 +11,6 @@ export class PostModel{
         public UserID :String,
         public title : String,
         public category : String,
-        public review :String
+        public review : String
     ){} 
 }

@@ -36,6 +36,7 @@ export class BlogComponent implements OnInit {
   constructor(private postService: PostService, public _auth:AuthService, private _router : Router) { }
 
   ngOnInit(): void { 
+    // let userid = localStorage.getItem("UserID");
     let postid = localStorage.getItem("postId");
     this.postService.getSinglePost(postid)
     .subscribe((data)=>{
@@ -46,8 +47,8 @@ export class BlogComponent implements OnInit {
     this.postService.deletepost(id);
   }
   AddReview(){
-    let userid = localStorage.getItem("UserId");
-    this.postService.addReview(this.post);
+    let userid = localStorage.getItem("UserID");
+    this.postService.addReview(this.post,userid);
     // console.log("added");
     console.log(this.post);
     alert("success");

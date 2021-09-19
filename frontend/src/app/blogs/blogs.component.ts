@@ -40,9 +40,10 @@ export class BlogsComponent implements OnInit {
     })
   }
   Addreview(post:any){
-    localStorage.setItem("updatePostId", post._id.toString());
+    // localStorage.setItem("updatePostId", post._id.toString());
     console.log(post);
     this._router.navigate(['/blog']);
   }
  
+
 }

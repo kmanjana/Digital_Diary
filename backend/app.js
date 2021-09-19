@@ -196,41 +196,44 @@ app.get('/blogs',function(req,res){
         res.send(post);
     });
 });
-
-//update a post
-//update a post
+app.get('/getSinglePost/:id',function(req,res){
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
+    const id = req.params.id;
+    PostData.find()
+    .then(function(post){ 
+        res.send(post);
+    });
+});
 app.put('/updatepost/:userid' ,verifyToken, function(req,res){
     console.log("update" +req.body);
     const UserId = req.params.userid;
-
     id = req.body._id,
     UserID = UserId,
     title = req.body.title,
-    category = req.body.category
+    category = req.body.category,
+    review =""
     console.log("update");
     console.log(req.body);
-
     PostData.findByIdAndUpdate({"_id" : id },
                                   {$set : {
                                       "UserID" : UserID,
                                       "title" : title,
                                       "category" : category, 
-                                      "review" : null                           
+                                      "review" : ""                           
                                   }})
+
     .then(function(){
         res.send();
     })                                  
 })
 //add a review 
-app.put('/blog', function(req,res){
-    console.log("Review" +req.body);
+app.put('/blog/:userid', function(req,res){
+    console.log("Review "+req.body);
     const UserId = req.params.userid;
-
     id = req.body._id,
     UserID = UserId,
-    // title = req.body.title,
-    // category = req.body.category,
-    review=req.body.review
+    review=req.body.review;
     console.log("review");
     console.log(req.body);  
     PostData.findByIdAndUpdate({"_id" : id },
@@ -242,11 +245,12 @@ app.put('/blog', function(req,res){
                                   }})
     .then(function(){
         res.send();
-    })                                 
+    })       
+    console.log(UserID);                          
 })
 
 // delete post
-app.delete('/removepost/:id' ,verifyToken, function(req,res){
+app.delete('/removepost/:id',verifyToken, function(req,res){
     id = req.params.id;
     PostData.findByIdAndDelete({ "_id" : id })
     .then(()=>{
