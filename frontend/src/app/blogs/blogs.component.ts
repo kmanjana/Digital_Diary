@@ -15,6 +15,7 @@ export class BlogsComponent implements OnInit {
   constructor(private postService : PostService,private _router: Router) { }
 
   ngOnInit(): void {
+    
     this.postService.getBlogs()
     .subscribe((blogs)=>{
       this.posts = JSON.parse(JSON.stringify(blogs));
@@ -24,7 +25,7 @@ export class BlogsComponent implements OnInit {
     .subscribe((data)=>{
       this.posts = JSON.parse(JSON.stringify(data)); //stringify = convert from object to JSON ; parse = convert from JSON to object
     })
-    console.log(postId);
+    console.log("UPDATE POST ID "+postId);
   } 
   // UpdatePost(post:any){
   //   localStorage.setItem("updatePostId" , post._id.toString());
@@ -42,6 +43,7 @@ export class BlogsComponent implements OnInit {
   }
   Addreview(post:any){
     localStorage.setItem("updatePostId",post._id.toString());
+    console.log(post._id.toString());
     this._router.navigate(['/blog']);
   }
   setPostId(post:any){

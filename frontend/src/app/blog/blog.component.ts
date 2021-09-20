@@ -30,12 +30,9 @@ export class BlogComponent implements OnInit {
   //   else
   //     this.buttonNamer = "Add";
   // }
-  
-
   constructor(private postService: PostService, public _auth:AuthService, private _router : Router) { }
 
   ngOnInit(): void { 
-    // let userid = localStorage.getItem("UserID");
     let postid = localStorage.getItem("postId");
     this.postService.getSinglePost(postid)
     .subscribe((data)=>{
@@ -47,8 +44,8 @@ export class BlogComponent implements OnInit {
   }
   AddReview(){
     let postId = localStorage.getItem("updatePostId");
-    this.postService.addReview(postId,this.post.review);
-    console.log("Review added is ",this.post.review);
+    this.postService.addReview(postId,this.post);
+    console.log("Review added is ",this.post);
     alert("success");
     this._router.navigate(['/blogs']); 
   }
