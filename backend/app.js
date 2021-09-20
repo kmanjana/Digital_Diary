@@ -233,7 +233,7 @@ app.put('/blog/:postId', function(req,res){
     const postId = req.params.postId;
     // id = req.body.postId, 
     review=req.body.review;
-    console.log("review");  
+    console.log("review is "+req.body.review);  
     PostData.findByIdAndUpdate({"_id":postId},
                                   {$set : {
                                     //   "UserID" : UserID,
@@ -244,7 +244,8 @@ app.put('/blog/:postId', function(req,res){
     .then(function(){
         res.send();
     })
-    console.log("BACKEND ",id)
+    console.log("BACKEND "+postId);
+    console.log()
 })
 
 // delete post
