@@ -28,21 +28,18 @@ export class MypostsComponent implements OnInit {
       
     })
   }
-
   UpdatePost(post:any){
-    localStorage.setItem("updatePostId" , post._id.toString());
+    localStorage.setItem("updatePostId",post._id.toString());
     this._router.navigate(['/updatepost']);
   }
-
   DeletePost(post: any){
     this.postService.deletePost(post._id)
     .subscribe((data)=>{
       this.posts = this.posts.filter(b => b !== post);  //deletes product from list (line 14) and shows the list of products that is != the deleted product
     })
   }
-
   setPostId(post:any){
-    localStorage.setItem("postId" , post._id.toString());
+    localStorage.setItem("postId",post._id.toString());
   }
 
 }

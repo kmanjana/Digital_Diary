@@ -24,6 +24,7 @@ export class BlogsComponent implements OnInit {
     .subscribe((data)=>{
       this.posts = JSON.parse(JSON.stringify(data)); //stringify = convert from object to JSON ; parse = convert from JSON to object
     })
+    console.log(postId);
   } 
   // UpdatePost(post:any){
   //   localStorage.setItem("updatePostId" , post._id.toString());
@@ -40,10 +41,10 @@ export class BlogsComponent implements OnInit {
     })
   }
   Addreview(post:any){
-    // localStorage.setItem("updatePostId", post._id.toString());
-    console.log(post);
+    localStorage.setItem("updatePostId",post._id.toString());
     this._router.navigate(['/blog']);
   }
- 
-
+  setPostId(post:any){
+    localStorage.setItem("postId",post._id.toString());
+  }
 }

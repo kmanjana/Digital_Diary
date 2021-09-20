@@ -47,11 +47,9 @@ export class BlogComponent implements OnInit {
     this.postService.deletepost(id);
   }
   AddReview(){
-    // let userid = localStorage.getItem("UserID");
+;
     let postId = localStorage.getItem("updatePostId");
-    this.postService.addReview(postId,this.post.review);
-    // console.log("added");
-    console.log(this.post);
+    this.postService.addReview(this.post.review,postId);
     alert("success");
     this._router.navigate(['/blogs']); 
   }

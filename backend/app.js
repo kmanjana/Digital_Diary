@@ -230,11 +230,11 @@ app.put('/updatepost/:userid' ,verifyToken, function(req,res){
 //add a review 
 app.put('/blog/:postId', function(req,res){
     console.log("Review "+req.body);
-    const postId = req.params.postid;
+    const postId = req.params.postId;
     id = req.body._id,
     review=req.body.review;
     console.log("review");  
-    PostData.findByIdAndUpdate({"_id":postId},
+    PostData.findByIdAndUpdate({"_id":id},
                                   {$set : {
                                     //   "UserID" : UserID,
                                     //   "title" : title,
@@ -243,8 +243,7 @@ app.put('/blog/:postId', function(req,res){
                                   }})
     .then(function(){
         res.send();
-    }) 
-    console.log(req.review);
+    })
 })
 
 // delete post

@@ -39,15 +39,14 @@ export class PostService {
     return this.http.get("http://localhost:3000/singlepost/"+postid);
   }
 
-  updatePost(post: any ,userid:any){
+  updatePost(post: any,userid:any){
     return this.http.put("http://localhost:3000/updatepost/"+userid, post)
     .subscribe((data)=>{console.log(data)})
   }
-  addReview(review:any,postid:any){
-    return this.http.put("http://localhost:3000/blog/"+postid,review)
+  addReview(review:any,postId:any){
+    return this.http.put("http://localhost:3000/blog/"+postId,review)
     .subscribe((data)=>{console.log(data)})
   }
-
   deletePost(id: any){
     return this.http.delete("http://localhost:3000/removepost/"+id);
   }
