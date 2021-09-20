@@ -48,7 +48,7 @@ app.post('/adduser' , function (req,res){
 });
 
 //login
-app.post('/login' , function(req,res){
+app.post('/login' ,function(req,res){
     console.log("login");
     let username = req.body.username;
 

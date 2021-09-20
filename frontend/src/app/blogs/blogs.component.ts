@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostModel } from '../posts/post.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from '../services/post.service';
 
 @Component({
@@ -11,8 +12,9 @@ import { PostService } from '../services/post.service';
 export class BlogsComponent implements OnInit {
 
   posts : PostModel[] = [];
+  // users : UserModel[]=[];
 
-  constructor(private postService : PostService,private _router: Router) { }
+  constructor(private postService : PostService,private _router: Router,public _auth:AuthService) { }
 
   ngOnInit(): void {
     
@@ -27,12 +29,6 @@ export class BlogsComponent implements OnInit {
     })
     console.log("UPDATE POST ID "+postId);
   } 
-  // UpdatePost(post:any){
-  //   localStorage.setItem("updatePostId" , post._id.toString());
-  //   console.log(post);
-  //   this._router.navigate(['/updatepost']);
-  // }
-
   categorySelect(catgselect : any){
     console.log("hai");
     console.log(catgselect);
