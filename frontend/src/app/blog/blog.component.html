@@ -9,9 +9,9 @@
     </div>
      <div class="mainc" >
       
-      <h3>{{post.title}}</h3>
+      <h3 class="title">{{post.title}}</h3>
       <!-- <h1>by {{user.username}}</h1> -->
-     <p>
+     <p class="content">
        Lorem ipsum dolor sit amet,&nbsp;
        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor vitae purus. Cursus metus aliquam eleifend mi in. Volutpat odio facilisis mauris sit amet massa. Suspendisse interdum consectetur libero id. Mauris cursus mattis molestie a iaculis at erat. Augue mauris augue neque gravida in fermentum. Tincidunt dui ut ornare lectus sit amet est placerat. Ornare aenean euismod elementum nisi quis eleifend. Nisl vel pretium lectus quam id leo. Quis hendrerit dolor magna eget. Sed enim ut sem viverra. Tempus imperdiet nulla malesuada pellentesque.
 
@@ -42,13 +42,13 @@ Sed vulputate mi sit amet. Consectetur adipiscing elit pellentesque habitant. Et
         <div class="tarea">
           <form #addreview="ngForm" (ngSubmit)="AddReview()">
             <div *ngIf="_auth.adminloggedIn()">
-            <textarea  name="text" id="" cols="40" rows="3" [(ngModel)]="post.review"></textarea>
+            <textarea class="my-3"  name="text" id="" cols="40" rows="3" [(ngModel)]="post.review"></textarea><br>
            <button class="btn btn-danger mx-2" type="submit">Submit review</button>
          </div>
        </form>  
          <div *ngIf="_auth.loggedIn()">
-           <textarea readonly *ngIf="isClicked" name="text" id="" cols="40" rows="3">{{post.review}}</textarea>
-          <button class="btn btn-danger mx-2"(click)="OnClick()">{{buttonName}} review</button>
+           <textarea  class="my-3" readonly *ngIf="isClicked" name="text" id="" cols="40" rows="4">{{post.review}}</textarea><br>
+          <button class="btn btn-danger mx-5"(click)="OnClick()">{{buttonName}} review</button>
         </div>        
         <div class="row top-spacer">
          <div class="col-lg-12 col-md-12 col-sm-12">

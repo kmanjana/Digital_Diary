@@ -25,7 +25,6 @@ export class MypostsComponent implements OnInit {
     this.postService.getUsername(userId)
     .subscribe((data)=>{
       this.user = JSON.parse(JSON.stringify(data));
-      
     })
   }
   UpdatePost(post:any){
@@ -40,6 +39,8 @@ export class MypostsComponent implements OnInit {
   }
   setPostId(post:any){
     localStorage.setItem("postId",post._id.toString());
+    
   }
 
 }
+

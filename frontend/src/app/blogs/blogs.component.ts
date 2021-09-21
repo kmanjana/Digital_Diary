@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostModel } from '../posts/post.model';
+import { UserModel } from 'src/app/auth/signup/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from '../services/post.service';
 
@@ -12,7 +13,7 @@ import { PostService } from '../services/post.service';
 export class BlogsComponent implements OnInit {
 
   posts : PostModel[] = [];
-  // users : UserModel[]=[];
+  // user = new UserModel("");
 
   constructor(private postService : PostService,private _router: Router,public _auth:AuthService) { }
 
@@ -27,6 +28,8 @@ export class BlogsComponent implements OnInit {
     .subscribe((data)=>{
       this.posts = JSON.parse(JSON.stringify(data)); //stringify = convert from object to JSON ; parse = convert from JSON to object
     })
+   
+   
     console.log("UPDATE POST ID "+postId);
   } 
   categorySelect(catgselect : any){
@@ -38,6 +41,7 @@ export class BlogsComponent implements OnInit {
     })
   }
   Addreview(post:any){
+    localStorage.setItem("postId",post._id.toString());
     localStorage.setItem("updatePostId",post._id.toString());
     console.log(post._id.toString());
     this._router.navigate(['/blog']);
