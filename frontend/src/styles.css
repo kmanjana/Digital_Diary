@@ -41,7 +41,7 @@ body,html{
   }
   .mainc p{
     text-align: center;
-    margin: 5%;
+    margin: 2%;
   }
   .iconDetails {
     margin-left:2%;
@@ -54,3 +54,10 @@ body,html{
       height:140px;
       padding:1%;
     }
+
+    div .tarea {
+      margin: auto;
+      width: 60%;
+      padding: 10px;
+      text-align: center;
+  }

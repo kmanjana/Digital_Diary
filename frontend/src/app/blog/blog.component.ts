@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { PostModel } from 'src/app/posts/post.model';
+import { UserModel } from 'src/app/auth/signup/user.model';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { AuthService } from '../services/auth.service';
 export class BlogComponent implements OnInit {
 
   post = new PostModel("","","","");
-  
+  user = new UserModel("");
   isClicked = false; 
   buttonName:any = 'Show';
   // buttonNamer:any = 'Add'
