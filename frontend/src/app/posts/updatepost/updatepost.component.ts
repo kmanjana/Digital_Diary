@@ -20,7 +20,7 @@ export class UpdatepostComponent implements OnInit {
     .subscribe((data)=>{
       this.postItem = JSON.parse(JSON.stringify(data)); //stringify = convert from object to JSON ; parse = convert from JSON to object
     })
-    console.log("From update poste ",postId)
+    console.log("From update post ",postId)
   }
 
   UpdatePost(){

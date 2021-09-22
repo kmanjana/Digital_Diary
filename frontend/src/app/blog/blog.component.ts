@@ -13,6 +13,7 @@ import { AuthService } from '../services/auth.service';
 export class BlogComponent implements OnInit {
 
   post = new PostModel("","","","");
+  // post : PostModel[]=[];
   user = new UserModel("");
   isClicked = false; 
   buttonName:any = 'Show';

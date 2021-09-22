@@ -4,12 +4,17 @@
       </div>
       
      </div>  -->
-     <div class="row col-lg-12 col-md-12 col-sm-12">
-      <img style="height: 700px;" src="../assets/blog.png" alt="">
-    </div>
-     <div class="mainc" >
-      
+     <div class="row">
+     <div style="margin-top: 100px;" class="col-lg-6 col-md-6 col-sm-6">
       <h3 class="title">{{post.title}}</h3>
+     </div>
+     <div class="col-lg-6 col-md-6 col-sm-6">
+      <img  style="height:500px ; width:500px" src="../assets/blog.png" alt="">
+    </div>
+  </div>
+
+     <div class="mainc" >
+      <!-- <h3 class="title">{{post.title}}</h3> -->
       <!-- <h1>by {{user.username}}</h1> -->
      <p class="content">
        Lorem ipsum dolor sit amet,&nbsp;
@@ -39,10 +44,15 @@ Sed vulputate mi sit amet. Consectetur adipiscing elit pellentesque habitant. Et
         <button type="button" class="btn btn-primary mb-5">Primary</button>
          -->
         </div>
+        <!-- <div class="form-group">
+          <label for="exampleFormControlTextarea1">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div> -->
+
         <div class="tarea">
           <form #addreview="ngForm" (ngSubmit)="AddReview()">
-            <div *ngIf="_auth.adminloggedIn()">
-            <textarea class="my-3"  name="text" id="" cols="40" rows="3" [(ngModel)]="post.review"></textarea><br>
+            <div class="form-group" *ngIf="_auth.adminloggedIn()">
+            <textarea class="my-3 form-control"  name="text" id="" rows="3" [(ngModel)]="post.review"></textarea><br>
            <button class="btn btn-danger mx-2" type="submit">Submit review</button>
          </div>
        </form>  
