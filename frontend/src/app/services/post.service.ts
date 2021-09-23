@@ -22,7 +22,7 @@ export class PostService {
     return this.http.get("http://localhost:3000/posts/myposts/"+userid)
   }
 
-  newPost(item:any , userid:any){
+  newPost(item:any,userid:any){
     return this.http.post("http://localhost:3000/posts/insertpost/"+userid, {"post" : item})
     .subscribe(data => {console.log(data)})
   }
