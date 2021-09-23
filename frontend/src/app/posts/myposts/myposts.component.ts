@@ -41,7 +41,7 @@ export class MypostsComponent implements OnInit {
       .subscribe((data)=>{
         this.posts = this.posts.filter(b => b !== post);  //deletes product from list (line 14) and shows the list of products that is != the deleted product
         })      
-        alert("deletion successfull!");
+        alert("Deletion successfull!");
     }
     
   }
