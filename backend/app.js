@@ -1,15 +1,8 @@
-// const path = require("path");
 const express = require("express");
 const jwt = require ("jsonwebtoken");
+const bcrypt = require('bcrypt');
 const PostData = require ('./src/model/post');
 const UserData = require ('./src/model/user');
-// const mongoose = require("mongoose");
-// const db = require("./db/db");
-// const header_middleware = require("./middlewares/header");
-
-// const postRouter = require("./Routes/post");
-// const userRoutes = require("./Routes/user");
-// const profileRoutes = require("./Routes/profile");
 
 var cors = require('cors');
 const app = express()
@@ -17,59 +10,86 @@ app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-// app.use("/api/posts", postRouter)
-// app.use("/api/user", userRoutes);
-
-// app.use("/api/profile", profileRoutes);
 
 
 //signup
 app.post('/adduser' , function (req,res){
-    console.log("add user");
     res.header("Access-control-Allow-Origin" , "*");
     res.header("Access-control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
-    console.log("insert");
-    console.log(req.body);
 
-    // var password = req.body.user.paswd;
-    // const hashedPsw =  bcrypt.hash(password,12);
+    var password = req.body.user.paswd.trim();
 
-    var user = {
-        // fname : req.body.user.fname.trim(),
-        // lname : req.body.user.lname.trim(),
-        // email : req.body.user.email.trim(),
-        // phno : req.body.user.phno.trim(),
-        username : req.body.user.username.trim(),
-        // paswd : req.body.user.paswd
-    }
+    bcrypt.hash(password,12, function(err,hash){
 
-    var user = new UserData(user);
-     user.save();
+        var signemail = req.body.user.email.trim();
+        var signusername = req.body.user.username.trim();
+
+        var messg = "";
+
+        UserData.findOne({"email" : signemail})
+       .then(function(user){
+           if(user){
+               res.status(401).send("Email id already exists");
+            }
+    
+            UserData.findOne({"username" : signusername})
+            .then(function(users){
+                if(users){
+                    res.status(401).send("Username is already taken. Use another");
+                }
+                 else if(user==null && users==null){
+                    console.log("success signup");
+                    var user = {
+                        fname : req.body.user.fname.trim(),
+                        lname : req.body.user.lname.trim(),
+                        email : signemail,
+                        phno : req.body.user.phno.trim(),
+                        username : signusername,
+                        paswd : hash
+                    }
+                
+                    var user = new UserData(user);
+                    user.save()  
+                    messg = "Success";
+                    res.status(200).send({messg});
+                } 
+            })
+        })
+    });
 });
-
 //login
-app.post('/login' ,function(req,res){
+app.post('/login' , function(req,res){
     console.log("login");
-    let username = req.body.username;
+    let logemail = req.body.email.trim();
+    let logpassword = req.body.paswd.trim();
 
-    if(username == "admin"){
-        let payload = {subject: username};
+    //admin login
+    if(logemail == "meeramaluanju@gmail.com" && logpassword == "meeramaluanju"){
+        let username = "admin";
+        let payload = {subject: logemail + logpassword};
         let token = jwt.sign(payload,'secretKey');
-        console.log(token);
         res.status(200).send({token,username});
     }
     else{
-
-    UserData.findOne({username : username})
+    //user login
+    
+    UserData.findOne({email : logemail})
     .then(function(user){
-            let payload = {subject: username};
-            let token = jwt.sign(payload,'secretKey');
-            console.log(token);
-            let userid = user._id;
-            res.status(200).send({token,userid});     
+        bcrypt.compare(logpassword,user.paswd, function(err,result){
+            if(result){
+                let payload = {subject: logemail + logpassword};
+                let token = jwt.sign(payload,'secretKey');
+                console.log(token);
+                let userid = user._id;
+                res.status(200).send({token,userid}); 
+            }
+            else{
+                res.status(401).send("Invalid Email or Password");
+            }
+        })            
     })
     .catch(function(){
-        res.status(401).send("Invalid username");
+        res.status(401).send("Invalid Email or Password");
     })
     }
 })
@@ -94,21 +114,10 @@ function verifyToken(req,res,next){
     next();   //if correct user request 
 
 }
+const postRouter = require("./src/routes/postRoutes")(verifyToken);
+app.use("/posts", postRouter);
 
-//show all blogs by category
-app.get('/blogsbyCatg/:category' , function (req,res){
-    res.header("Access-control-Allow-Origin" , "*");
-    res.header("Access-control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
 
-    let category = req.params.category;
-    // console.log(category);
-    PostData.find({"category":category})
-    .then(function(blogs){ 
-        res.send(blogs);
-    });
-});
-
-//to get username
 app.get('/getusername/:userid' , function (req,res){
     res.header("Access-control-Allow-Origin" , "*");
     res.header("Access-control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
@@ -118,147 +127,6 @@ app.get('/getusername/:userid' , function (req,res){
     .then(function(user){ 
         res.send(user);
     });
-});
-
-//show all users posts
-app.get('/myposts/:userid' ,verifyToken, function (req,res){
-    res.header("Access-control-Allow-Origin" , "*");
-    res.header("Access-control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
-
-    const userId = req.params.userid;
-    // console.log(userID);
-    PostData.find({"UserID":userId})
-    .then(function(posts){ 
-        res.send(posts);
-    });
-});
-
-//single post
-app.get('/singlepost/:postid',function(req,res){
-    res.header("Access-control-Allow-Origin" , "*");
-    res.header("Access-control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
-    const postId = req.params.postid;
-
-    PostData.findOne({"_id":postId})
-    .then(function(post){ 
-        res.send(post);
-    });
-});
-
-//to get details of the post for update page 
-app.get('/post/:postid',function(req,res){
-    res.header("Access-control-Allow-Origin" , "*");
-    res.header("Access-control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
-    const postId = req.params.postid;
-
-    PostData.findOne({"_id":postId})
-    .then(function(post){ 
-        console.log(post);
-        res.send(post);
-    });
-});
-
-
-// app.get('/post/:id' , (req,res)=>{
-
-//     const id = req.params.id; 
-    
-//     PostData.findOne({"_id":id})
-//     .then((post)=>{
-//         res.send(post);
-//     })
-// })
-
-
-//add new post
-app.post('/insertpost/:userid' ,verifyToken, function (req,res){
-    res.header("Access-control-Allow-Origin" , "*");
-    res.header("Access-control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
-    const UserId = req.params.userid;
-    console.log("insert");
-    console.log(req.body);
-    var post = {
-        UserID : UserId,
-        title : req.body.post.title,
-        category : req.body.post.category ,
-        review :req.body.post.review     //check this section to add the review
-    }
-
-    var post = new PostData(post); 
-    console.log(post);
-    post.save();
-});
-app.get('/blogs',function(req,res){
-    res.header("Access-Control-Allow-Origin","*");
-    res.header("Access-Control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
-    PostData.find()
-    .then(function(post){ 
-        res.send(post);
-    });
-});
-app.get('/getSinglePost/:id',function(req,res){
-    res.header("Access-Control-Allow-Origin","*");
-    res.header("Access-Control-Allow-Methods : GET,POST,PATCH,PUT,DELETE,OPTIONS");
-    const id = req.params.id;
-    PostData.find()
-    .then(function(post){ 
-        res.send(post);
-    });
-});
-app.put('/updatepost/:userid' ,verifyToken, function(req,res){
-    console.log("update" +req.body);
-    const UserId = req.params.userid;
-    id = req.body._id,
-    UserID = UserId,
-    title = req.body.title,
-    category = req.body.category,
-    review =""
-    console.log("update");
-    console.log(req.body);
-    PostData.findByIdAndUpdate({"_id" : id },
-                                  {$set : {
-                                      "UserID" : UserID,
-                                      "title" : title,
-                                      "category" : category, 
-                                      "review" : ""                           
-                                  }})
-
-    .then(function(){
-        res.send();
-    })                                  
-})
-//add a review 
-app.put('/blog/:postId', function(req,res){
-    const postId = req.params.postId;
-    review=req.body.review;
-    console.log("review is "+req.body.review);  
-    PostData.findByIdAndUpdate({"_id":postId},
-                                  {$set : {
-                                      "review" : review                       
-                                  }})
-    .then(function(){
-        res.send();
-    })
-    console.log("BACKEND "+postId);
-    console.log()
-})
-
-// delete post
-app.delete('/removepost/:id',verifyToken, function(req,res){
-    id = req.params.id;
-    PostData.findByIdAndDelete({ "_id" : id })
-    .then(()=>{
-        console.log('success');
-        res.send();
-    })
-})
-
-app.delete('/deletepost/:id',function(req,res){
-    const id = req.params.id;
-    PostData.remove({_id: id})
-    .then(function(){
-        res.status(200).json({id});
-    })
 });
 
 app.listen(port,()=>{console.log("Server Ready at "+port)});

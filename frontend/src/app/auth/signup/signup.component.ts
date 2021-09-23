@@ -10,10 +10,12 @@ import { UserModel } from './user.model';
 })
 export class SignupComponent implements OnInit {
 
-  userItem = new UserModel("");
+  userItem = new UserModel("","","","","","");
 
   constructor(private authService: AuthService, private _router: Router) { }
 
+  failedsignup:Boolean=false;
+  message:String="";
   confpaswd="";
   samepaswd: Boolean = false;
   paswdval:String="";
@@ -22,19 +24,28 @@ export class SignupComponent implements OnInit {
   }
 
   AddUser(){
-    this.authService.addUser(this.userItem);
-    console.log("added");
-    alert("Registered successfully");
-    this._router.navigate(['/login']);
+    this.authService.addUser(this.userItem)
+    .subscribe(
+      res => {
+        console.log(res);
+        alert("Registered successfully");
+        this._router.navigate(['/login']);
+      },
+      err =>{
+        console.log(err);
+        this.message=err.error; // to get the "error" message in HttpErrorResponse
+        this.failedsignup= true;
+      })
+    
   }
-  // check(){
-  //   if(this.confpaswd == this.userItem.paswd){
-  //     this.samepaswd = true;
-  //     this.paswdval = "";
-  //   }
-  //   else{
-  //     this.samepaswd = false;
-  //     this.paswdval = "Passwords must be same";
-  //   }
-  // }
+  check(){
+    if(this.confpaswd == this.userItem.paswd){
+      this.samepaswd = true;
+      this.paswdval = "";
+    }
+    else{
+      this.samepaswd = false;
+      this.paswdval = "Passwords must be same";
+    }
+  }
 }

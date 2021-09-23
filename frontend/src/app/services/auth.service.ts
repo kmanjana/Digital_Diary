@@ -9,8 +9,7 @@ export class AuthService {
   constructor(private http: HttpClient) { } 
 
   addUser(user:any){
-    return this.http.post("http://localhost:3000/adduser", {"user" : user})
-    .subscribe(data => {console.log(data)})
+    return this.http.post<any>("http://localhost:3000/adduser", {"user" : user})
   }
 
   loginUser(user: any){

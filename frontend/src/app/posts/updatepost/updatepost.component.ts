@@ -20,13 +20,12 @@ export class UpdatepostComponent implements OnInit {
     .subscribe((data)=>{
       this.postItem = JSON.parse(JSON.stringify(data)); //stringify = convert from object to JSON ; parse = convert from JSON to object
     })
-    console.log("From update post ",postId)
   }
 
   UpdatePost(){
     let userid = localStorage.getItem("UserID");
-    this.postService.updatePost(this.postItem ,userid);
-    alert("success");
+    this.postService.updatePost(this.postItem , userid);
+    alert('Updated "' + this.postItem.title + '" successfully!');
     this._router.navigate(['/myposts']);
   }
 

@@ -1,5 +1,10 @@
 export class UserModel{
     constructor(
-        public username : String
+        public fname : String,
+        public lname : String,
+        public email : String,
+        public phno : String,
+        public username : String,
+        public paswd : String
     ){} 
 }

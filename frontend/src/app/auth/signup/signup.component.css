@@ -1,25 +1,30 @@
+*{
+  font-weight:600;
+}
+form{
+  background-image: url("/assets/images/back1.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .register{
     padding: 3%;
     border-width: 1px;
-    border-radius: 70px;
-    box-shadow: 10px 10px 10px rgb(24, 20, 31);
+    /* box-shadow: 10px 10px 10px rgb(24, 20, 31); */
     background-position: left;
-    background-size: cover;
-    background-repeat: no-repeat;
     height: auto; 
     margin-top: 4%;
     border: 1px solid white;
     padding: 25px;
-    background-color: rgba(0, 0, 0, 0.904);
-    color: white;
+    background-color: rgba(250, 241, 241, 0.486);
+    color: black;
 } 
 input{
     text-indent:14px;
 }
 .form-control:hover{
-    border: 1px solid #532622;
-    background-color: rgba(15, 14, 14, 0.836);
-    color: white;
+    border: 1px solid #512e58;
+    background-color: rgba(233, 206, 250, 0.966);
+    color: black;
 }
 .register .register-form{
     padding: 8%;
@@ -30,22 +35,22 @@ input{
     border-radius: 1.5rem;
     margin-left: 50px;
     padding: 2%;
-    background: #773731;
+    background: #7a46aa;
     color: rgb(242, 243, 234);
     font-size: 20px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     width: 90%;
     cursor: pointer;
 }
 .btnsignup:hover{
-    background:  #572420fa;
+    background:  #5f3388fa;
 }
 .register-heading{
     text-align: center;
     margin-top: 6%;
     margin-bottom: -15%;
-    color: white;
+    color: black;
     font-size: 50px;
+    
 }
 .register{
     width: 50%;
@@ -60,9 +65,9 @@ input{
       position:absolute ;
       top: 10px;
       left: 20px;
-      color: rgb(82, 80, 80);
+      color: rgb(147, 118, 163);
       /* color: rgba(250, 249, 245, 0.596); */
-      font-size: 18px;
+      font-size: 17px;
       /* z-index: 9999; */
       }
     form .indicator{
@@ -97,7 +102,7 @@ input{
       user-select: none;
     }
     .form-control{
-        border: 1px solid #573b39;
+        border: 1px solid #734688;
         background-color: rgba(255, 255, 255, 0.788); 
         color: rgb(14, 12, 12);
     }
@@ -118,5 +123,5 @@ input{
       margin-top: 30px;
     }
 .btnsignup[disabled]{
-  background: rgb(184, 178, 178);
+  background: rgb(172, 168, 184);
 }

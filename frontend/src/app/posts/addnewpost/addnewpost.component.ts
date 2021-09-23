@@ -21,8 +21,7 @@ export class AddnewpostComponent implements OnInit {
     let userid = localStorage.getItem("UserID");
     this.postService.newPost(this.postItem , userid);
     console.log("added");
-    console.log(this.postItem);
-    alert("success");
+    alert('Added "' + this.postItem.title + '" successfully!');
     this._router.navigate(['/myposts']); 
   }
 }

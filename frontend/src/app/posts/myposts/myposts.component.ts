@@ -13,9 +13,10 @@ import { PostModel } from '../post.model'
 export class MypostsComponent implements OnInit {
 
   posts : PostModel[] = [];
-  user = new UserModel("");
+  user = new UserModel("","","","","","");
 
   constructor(private postService: PostService ,public _auth:AuthService, private _router: Router) { }
+
   ngOnInit(): void { 
     let userId = localStorage.getItem("UserID");
     this.postService.getmyPosts(userId)
@@ -25,22 +26,28 @@ export class MypostsComponent implements OnInit {
     this.postService.getUsername(userId)
     .subscribe((data)=>{
       this.user = JSON.parse(JSON.stringify(data));
+      
     })
   }
+
   UpdatePost(post:any){
-    localStorage.setItem("updatePostId",post._id.toString());
+    localStorage.setItem("updatePostId" , post._id.toString());
     this._router.navigate(['/updatepost']);
   }
-  DeletePost(post: any){
-    this.postService.deletePost(post._id)
-    .subscribe((data)=>{
-      this.posts = this.posts.filter(b => b !== post);  //deletes product from list (line 14) and shows the list of products that is != the deleted product
-    })
-  }
-  setPostId(post:any){
-    localStorage.setItem("postId",post._id.toString());
+
+  Confirmdelete(post:any){
+    if(confirm('Are you sure you want to delete "' + post.title + '" ?')){
+      this.postService.deletePost(post._id)
+      .subscribe((data)=>{
+        this.posts = this.posts.filter(b => b !== post);  //deletes product from list (line 14) and shows the list of products that is != the deleted product
+        })      
+        alert("deletion successfull!");
+    }
     
   }
 
-}
+  setPostId(post:any){
+    localStorage.setItem("postId" , post._id.toString());
+  }
 
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostModel } from '../posts/post.model';
-import { UserModel } from 'src/app/auth/signup/user.model';
+// import { UserModel } from 'src/app/auth/signup/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from '../services/post.service';
 
@@ -13,7 +13,6 @@ import { PostService } from '../services/post.service';
 export class BlogsComponent implements OnInit {
 
   posts : PostModel[] = [];
-  // user = new UserModel("");
 
   constructor(private postService : PostService,private _router: Router,public _auth:AuthService) { }
 
@@ -33,7 +32,6 @@ export class BlogsComponent implements OnInit {
     console.log("UPDATE POST ID "+postId);
   } 
   categorySelect(catgselect : any){
-    console.log("hai");
     console.log(catgselect);
     this.postService.getBlogsByCatg(catgselect)
     .subscribe((data)=>{
